@@ -1,75 +1,34 @@
-# Nuxt Minimal Starter
+# An opinionated defineApiEventHandler function for Nuxt
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+```ts
+import { z } from "zod";
+
+export default defineApiEventHandler({
+  //All validation done here EVERY TIME
+  validation: z.object({
+    query: z.string().optional(),
+
+    // query string variable coerced to number
+    take: z.coerce.number().optional(),
+  }),
+
+  // ALL route specific middleware defined in ONE place EVERY TIME
+  guards: [userIsLoggedInGuard, userIsAdminGuard],
+
+  // Handler with payload values already guaranteed valid
+  handler: async (event, { query, take }) => {
+    // data paginated by take and query
+    return [];
+  },
+});
+```
+
+[Vist the Vue School Blog to get a full tutorial on how to use this function.](https://vueschool.io/articles/vuejs-tutorials/a-custom-opinionated-event-handler-for-nuxt-api-endpoints-with-guards-and-validation-support)
 
 ## Setup
-
-Make sure to install dependencies:
 
 ```bash
 # npm
 npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
 npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
