@@ -1,6 +1,7 @@
 # An opinionated defineApiEventHandler function for Nuxt
 
 ```ts
+// server/api/posts/index.get.ts
 import { z } from "zod";
 
 export default defineApiEventHandler({
